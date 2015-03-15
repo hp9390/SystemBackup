@@ -21,4 +21,4 @@ Usage: ./sysbak
 - creates directory /mnt/backups/{date & time}
 
 - backs up root filesystem using:
-	rsync -aAXv --exclude={"/dev/*","/proc/*","/sys/*","/tmp/*","/run/*","/mnt/*","/media/*","/lost+found"} /* /mnt/backups/`date +%m-%d-%Y-%H:%m:%S`		
+`	rsync -aAXv --exclude={"/dev/*","/proc/*","/sys/*","/tmp/*","/run/*","/mnt/*","/media/*","/lost+found"} /* /mnt/backups/`date +%m-%d-%Y-%H:%m:%S``
