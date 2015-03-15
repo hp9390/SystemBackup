@@ -1,0 +1,45 @@
+#!/bin/bash
+
+function checkBackupsDir(){
+	if [ ! -d /mnt/backups ] ;
+	    then
+		mkdir -p /mnt/backups	
+	fi
+}
+
+until [ "$yOrn" == "y" ] || [ "$yOrn" == "n" ];
+    do
+	echo -n "mount backups directory? [y/n] "
+	read yOrn
+	if [ "$yOrn" == "y" ] ;
+       	    then
+		echo -n "enter device file path (/dev/sd**) > "
+		read devPath
+		checkBackupsDir
+
+		mount $devPath /mnt/backups
+		if [ $? -ne 0 ] ;
+	    	    then
+			echo "could not mount volume"	
+			exit 1
+		else
+			if [ ! -d /mnt/backups/`date +%m-%d-%Y-%H:%m:%S` ] ;
+			    then
+				mkdir /mnt/backups/`date +%m-%d-%Y-%H:%m:%S`
+			fi
+		fi
+		rsync -aAXv --exclude={"/dev/*","/proc/*","/sys/*","/tmp/*","/run/*","/mnt/*","/media/*","/lost+found"} /* /mnt/backups/`date +%m-%d-%Y-%H:%m:%S`	
+		exit 0
+	elif [ "$yOrn" == "n" ] ;
+    	    then
+		checkBackupsDir
+		if [ ! -d /mnt/backups/`date +%m-%d-%Y-%H:%m:%S` ] ;
+	    	    then
+			mkdir /mnt/backups/`date +%m-%d-%Y-%H:%m:%S`
+		fi
+
+		rsync -aAXv --exclude={"/dev/*","/proc/*","/sys/*","/tmp/*","/run/*","/mnt/*","/media/*","/lost+found"} /* /mnt/backups/`date +%m-%d-%Y-%H:%m:%S`	
+		exit 0;
+	fi
+	echo "please enter y or n"
+done
