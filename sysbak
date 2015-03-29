@@ -23,22 +23,22 @@ until [ "$yOrn" == "y" ] || [ "$yOrn" == "n" ];
 			echo "could not mount volume"	
 			exit 1
 		else
-			if [ ! -d /mnt/backups/`date +%m-%d-%Y-%H:%m:%S` ] ;
+			if [ ! -d /mnt/backups/`date +%m-%d-%Y-%H:%M:%S` ] ;
 			    then
-				mkdir /mnt/backups/`date +%m-%d-%Y-%H:%m:%S`
+				mkdir /mnt/backups/`date +%m-%d-%Y-%H:%M:%S`
 			fi
 		fi
-		rsync -aAXv --exclude={"/dev/*","/proc/*","/sys/*","/tmp/*","/run/*","/mnt/*","/media/*","/lost+found"} /* /mnt/backups/`date +%m-%d-%Y-%H:%m:%S`	
+		rsync -aAXv --exclude={"/dev/*","/proc/*","/sys/*","/tmp/*","/run/*","/mnt/*","/media/*","/lost+found"} /* /mnt/backups/`date +%m-%d-%Y-%H:%M:%S`	
 		exit 0
 	elif [ "$yOrn" == "n" ] ;
     	    then
 		checkBackupsDir
-		if [ ! -d /mnt/backups/`date +%m-%d-%Y-%H:%m:%S` ] ;
+		if [ ! -d /mnt/backups/`date +%m-%d-%Y-%H:%M:%S` ] ;
 	    	    then
-			mkdir /mnt/backups/`date +%m-%d-%Y-%H:%m:%S`
+			mkdir /mnt/backups/`date +%m-%d-%Y-%H:%M:%S`
 		fi
 
-		rsync -aAXv --exclude={"/dev/*","/proc/*","/sys/*","/tmp/*","/run/*","/mnt/*","/media/*","/lost+found"} /* /mnt/backups/`date +%m-%d-%Y-%H:%m:%S`	
+		rsync -aAXv --exclude={"/dev/*","/proc/*","/sys/*","/tmp/*","/run/*","/mnt/*","/media/*","/lost+found"} /* /mnt/backups/`date +%m-%d-%Y-%H:%M:%S`	
 		exit 0;
 	fi
 	echo "please enter y or n"
